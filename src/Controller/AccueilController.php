@@ -6,27 +6,19 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;
 
-final class AccueilController extends AbstractController
+class AccueilController extends AbstractController
 {
     #[Route('/accueil', name: 'app_accueil')]
     public function index(): Response
     {
-        return $this->re2.2 Analyse du contrôleur généré
-Ouvrez le fichier src/Controller/AccueilController.php :
+        return $this->render('accueil/index.html.twig', [
+            'controller_name' => 'AccueilController',
+        ]);
+    }
 
-<?php
-namespace App\Controller;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\Routing\Attribute\Route;
-class AccueilController extends AbstractController
-{
-#[Route('/accueil', name: 'app_accueil')]
-public function index(): Response
-{
-return $this->render('accueil/index.html.twig', [
-'controller_name' => 'AccueilController',
-]);
+    #[Route('/bonjour/{prenom}', name: 'app_bonjour')]
+    public function bonjour(string $prenom): Response
+    {
+        return new Response("<h1>Bonjour $prenom ! Bienvenue sur Symfony du GUIZANI </h1>");
+    }
 }
-}
-
