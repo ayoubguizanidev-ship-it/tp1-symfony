@@ -3,6 +3,8 @@
 namespace App\Form;
 
 use App\Entity\Article;
+use App\Entity\Categorie;
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\CheckboxType;
 use Symfony\Component\Form\Extension\Core\Type\DateTimeType;
@@ -51,6 +53,14 @@ class ArticleType extends AbstractType
                 'attr' => ['class' => 'form-check-input'],
                 'label_attr' => ['class' => 'form-check-label'],
                 'row_attr' => ['class' => 'form-check mb-3'],
+            ])
+            ->add('categorie', EntityType::class, [
+                'class' => Categorie::class,
+                'choice_label' => 'nom',
+                'label' => 'Catégorie',
+                'placeholder' => '-- Choisir une catégorie --',
+                'required' => false,
+                'attr' => ['class' => 'form-control'],
             ])
             ->add('enregistrer', SubmitType::class, [
                 'label' => '💾 Enregistrer',
