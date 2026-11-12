@@ -3,16 +3,31 @@
 {% block title %}Liste des articles{% endblock %}
 
 {% block body %}
+
     <h1 class="mb-4">Articles (depuis la BDD)</h1>
+
+    {% if is_granted('ROLE_USER') %}
+        <a href="{{ path('app_article_nouveau') }}" class="btn btn-primary mb-3">
+            ➕ Créer un article
+        </a>
+    {% endif %}
 
     {% if articles is empty %}
         <div class="alert alert-info">
             Aucun article en base de données.
-            <a href="{{ path('app_article_nouveau') }}" class="alert-link">Créer un article</a>
+
+            {% if is_granted('ROLE_USER') %}
+                <a href="{{ path('app_article_nouveau') }}" class="alert-link">
+                    Créer un article
+                </a>
+            {% endif %}
         </div>
+
     {% else %}
+
         <div class="table-responsive">
             <table class="table table-bordered table-hover mt-4">
+
                 <thead class="table-dark text-center">
                     <tr>
                         <th>ID</th>
@@ -22,6 +37,7 @@
                         <th>Statut</th>
                     </tr>
                 </thead>
+
                 <tbody>
                     {% for article in articles %}
                         <tr>
@@ -29,20 +45,29 @@
                             <td>{{ article.titre }}</td>
                             <td>{{ article.auteur }}</td>
                             <td>{{ article.dateCreation|date('d/m/Y') }}</td>
+
                             <td class="text-center">
                                 {% if article.publie %}
-                                    <span class="badge bg-success">✅ Publié</span>
+                                    <span class="badge bg-success">
+                                        ✅ Publié
+                                    </span>
                                 {% else %}
-                                    <span class="badge bg-warning text-dark">Brouillon</span>
+                                    <span class="badge bg-warning text-dark">
+                                        Brouillon
+                                    </span>
                                 {% endif %}
                             </td>
                         </tr>
                     {% endfor %}
                 </tbody>
+
             </table>
         </div>
+
         <p class="mt-3 text-muted">
             {{ articles|length }} article(s) en base de données
         </p>
+
     {% endif %}
+
 {% endblock %}

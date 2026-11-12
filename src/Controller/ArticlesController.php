@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Repository\ArticleRepository;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -14,6 +15,7 @@ use Doctrine\ORM\EntityManagerInterface;
 class ArticlesController extends AbstractController
 {
     #[Route('/articles/nouveau', name: 'app_article_nouveau')]
+    #[IsGranted('ROLE_USER')]
     public function nouveau(Request $request, EntityManagerInterface $em): Response
     {
         $article = new Article();
@@ -48,5 +50,4 @@ class ArticlesController extends AbstractController
             'articles' => $articles,
         ]);
     }
-        
-    }
+}

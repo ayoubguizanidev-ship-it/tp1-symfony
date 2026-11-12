@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>{% block title %}Symfony TP2{% endblock %}</title>
+    <title>{% block title %}Symfony TP3{% endblock %}</title>
 
     <!-- Bootstrap 5 CSS -->
     <link
@@ -16,24 +16,59 @@
 
 <body class="bg-light">
 
+    <!-- Navigation -->
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark mb-4">
         <div class="container">
+
             <a class="navbar-brand" href="{{ path('app_accueil') }}">
-                Symfony TP2
+                Symfony TP3
             </a>
 
             <div class="navbar-nav">
-                <a class="nav-link" href="{{ path('app_accueil') }}">🏠 Accueil</a>
-                <a class="nav-link" href="{{ path('app_articles') }}">📰 Articles</a>
+                <a class="nav-link" href="{{ path('app_accueil') }}">
+                    🏠 Accueil
+                </a>
+
+                <a class="nav-link" href="{{ path('app_articles') }}">
+                    📰 Articles
+                </a>
+            </div>
+
+            <div class="navbar-nav ms-auto">
+
+                {% if app.user %}
+
+                    <span class="nav-link">
+                        {{ app.user.userIdentifier }}
+                    </span>
+
+                    <a class="nav-link" href="{{ path('app_logout') }}">
+                        Déconnexion
+                    </a>
+
+                {% else %}
+
+                    <a class="nav-link" href="{{ path('app_login') }}">
+                        Connexion
+                    </a>
+
+                    <a class="nav-link" href="{{ path('app_register') }}">
+                        Inscription
+                    </a>
+
+                {% endif %}
+
             </div>
         </div>
     </nav>
 
+    <!-- Main Content -->
     <div class="container bg-white p-4 shadow-sm rounded">
 
-        {# Messages flash #}
+        <!-- Flash Messages -->
         {% for label, messages in app.flashes %}
             {% for message in messages %}
+
                 <div
                     class="alert alert-{{ label == 'danger' ? 'danger' : (label == 'success' ? 'success' : 'warning') }} alert-dismissible fade show"
                     role="alert"
@@ -47,6 +82,7 @@
                         aria-label="Close"
                     ></button>
                 </div>
+
             {% endfor %}
         {% endfor %}
 
@@ -54,6 +90,7 @@
 
     </div>
 
+    <!-- Footer -->
     <footer class="text-center py-4 text-muted mt-5">
         &copy; {{ "now"|date("Y") }} — TP Symfony 7.4
     </footer>
